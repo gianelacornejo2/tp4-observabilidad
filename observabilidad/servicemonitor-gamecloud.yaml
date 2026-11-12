@@ -1,0 +1,16 @@
+﻿apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: gamecloud-ranking-monitor
+  namespace: observabilidad
+spec:
+  namespaceSelector:
+    matchNames:
+      - gamecloud
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: gamecloud-ranking
+  endpoints:
+    - port: http
+      path: /metrics
+      interval: 15s

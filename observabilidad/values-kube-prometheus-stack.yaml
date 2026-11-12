@@ -1,0 +1,27 @@
+﻿alertmanager:
+  enabled: false
+
+prometheus:
+  prometheusSpec:
+    serviceMonitorSelectorNilUsesHelmValues: false
+
+grafana:
+  resources:
+    limits:
+      memory: 512Mi
+    requests:
+      memory: 256Mi
+  additionalDataSources:
+    - name: Loki
+      type: loki
+      url: http://loki.observabilidad.svc.cluster.local:3100
+      access: proxy
+      isDefault: false
+
+# Evita targets en estado DOWN propios del control plane en Minikube
+kubeControllerManager:
+  enabled: false
+kubeScheduler:
+  enabled: false
+kubeEtcd:
+  enabled: false
